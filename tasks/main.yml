@@ -1,3 +1,17 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for foo
+- name: Ansible VS Code Extension by Red Hat
+  ansible.builtin.shell: code --install-extension redhat.ansible
+  args:
+    creates: "{{ ansible_env.HOME }}/.vscode/extensions/redhat.ansible-*"
+
+
+- name: Favorite Ansible Extensions
+  ansible.builtin.shell: "code --install-extension {{item}}"
+  args:
+    creates: "{{ ansible_env.HOME }}/.vscode/extensions/{{item}}-*"
+  loop:
+  - redhat.ansible
+  - ms-python.python
+
+- name: Ansible Lint
+  include_tasks: Ansible Lint/main.yml
